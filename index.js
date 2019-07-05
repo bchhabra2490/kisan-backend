@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 // Read .env file from the project
 const dotenv = require('dotenv')
@@ -28,6 +29,18 @@ app.use(
     extended: true,
   })
 )
+
+// CORS
+app.all('/', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+ });
+
+app.use(cors({
+    origin: true, //['http://localhost:2000','https://m.tripshire.com','http://localhost:2001','http://localhost:3000','https://www.tripshire.com', 'https://insider.tripshire.com','https://kdhingra307.github.io','https://admin.tripshire.com','tripshire.com'],
+    credentials: true
+}));
 
 // Routes
 app.get('/', (request, response) => {
